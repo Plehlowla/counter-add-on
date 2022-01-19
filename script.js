@@ -3,8 +3,10 @@ const subtractBtn = document.querySelector("#subtract");
 const counterNum = document.querySelector('#counter');
 const resetBtn = document.querySelector('#reset');
 const ulElement = document.querySelector("#list-items")
+const removeBtn = document.querySelector('#remove')
 
 let counter = 0;
+let randomNumber = Math.floor(Math.random() * 10)
 
 function add() {
     counter++
@@ -12,8 +14,22 @@ function add() {
 
         // create an element
         const li = document.createElement('li')
+        li.setAttribute('data-counter', counter)
+
+        if(counter % 2 === 0) {
+            li.setAttribute('class','red')
+        } else {
+            li.setAttribute('class','yellow')
+        }
+
+        // CSS STYLE
+        // li.setAttribute('class', 'red')
+
+        // innerHTML to add the <b> and stuff, idk if it works with innerText
         li.innerHTML = '<b>Sentence</b> ' + counter
-        li.style = "font-size:30px;"
+
+        // Font Size
+        li.style = "font-size:30px;" 
 
 
         // const b = document.createElement('b')
@@ -33,6 +49,19 @@ function add() {
 addBtn.addEventListener('click', add)
 
 function subtract() {
+
+    const li = ulElement.querySelector('[data-counter="'+counter+'"]')
+
+    // parseInt to make the li into a number
+    const number = parseInt(li.getAttribute('data-counter'), 10)
+
+    // // Makes it so, it only removes the even numbers 
+    // // if(number % 2 === 0) {
+    // //     return
+    // // }
+    
+    li.remove()
+
     counter--
     counterNum.innerText = counter
 }
@@ -44,3 +73,14 @@ function reset() {
     location.reload();
 }
 resetBtn.addEventListener('click', reset)
+
+// function remove() {
+
+//     const li = ulElement.querySelector('[data-counter="'+counter+'"]')
+
+//     // parseInt to make the li into a number
+//     const number = parseInt(li.getAttribute('data-counter'), 10)
+//     // counter--
+//     li.remove()
+// }
+// removeBtn.addEventListener('click', remove)
